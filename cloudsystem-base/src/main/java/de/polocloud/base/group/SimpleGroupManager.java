@@ -44,8 +44,8 @@ public final class SimpleGroupManager extends AbstractGroupManager {
                         this.addServiceGroup(new SimpleServiceGroup("Lobby", "Lobby",
                             Base.getInstance().getNode().getName(), "A default service", 1024,
                             100, 1, -1, false, true,
-                            false, true, GameServerVersion.PAPER_1_18_2));
-                        Base.getInstance().getLogger().log("§7You created following groups: §b" + "Lobby (Paper 1.18.2)§7, §bProxy (Velocity)");
+                            false, true, GameServerVersion.PAPER_1_20_4));
+                        Base.getInstance().getLogger().log("§7You created following groups: §b" + "Lobby (Paper 1.20.4)§7, §bProxy (Velocity)");
                     }
                 }, Arrays.asList("yes", "no"));
             });

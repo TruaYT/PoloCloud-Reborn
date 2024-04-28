@@ -55,10 +55,29 @@ public final class Wrapper extends CloudAPI {
              * Credits to @CloudNetServices
              * GitHub: https://github.com/CloudNetService/CloudNet-v3
              */
+            ClassLoader loader = ClassLoader.getSystemClassLoader();
 
             var classLoader = ClassLoader.getSystemClassLoader();
             if (Boolean.parseBoolean(arguments.remove(0))) {
+                classLoader = new ApplicationExternalClassLoader().addUrl(Paths.get(arguments.remove(0)));
+                try (JarInputStream stream = new JarInputStream(Files.newInputStream(applicationFile))) {
+                    JarEntry entry;
+                    while ((entry = stream.getNextJarEntry()) != null) {
+                        // only resolve class files
+                        if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
+                            // canonicalize the class name
+                            String className = entry.getName().replace('/', '.').replace(".class", "");
+                            // load the class
+                            try {
+                                Class.forName(className, false, loader);
+                            } catch (Throwable ignored) {
+                                // ignore
+                            }
+                        }
+                    }
+                }
 
+/*
                 classLoader = new ApplicationExternalClassLoader().addUrl(Paths.get(arguments.remove(0)));
                 try (final var jarInputStream = new JarInputStream(Files.newInputStream(applicationFile))) {
                     JarEntry jarEntry;
@@ -68,6 +87,7 @@ public final class Wrapper extends CloudAPI {
                         }
                     }
                 }
+ */
             }
 
             instrumentation.appendToSystemClassLoaderSearch(new JarFile(applicationFile.toFile()));
@@ -114,8 +134,8 @@ public final class Wrapper extends CloudAPI {
         Runtime.getRuntime().addShutdownHook(new Thread(this::stop, "PoloCloud-Shutdown-Thread"));
 
         packetHandler.registerPacketListener(ResponsePacket.class, (channelHandlerContext, packet) -> {
-            if(packet.getPacket() instanceof ServiceMemoryRequest memoryRequest) {
-                memoryRequest.setMemory((int)(calcMemory(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())));
+            if (packet.getPacket() instanceof ServiceMemoryRequest memoryRequest) {
+                memoryRequest.setMemory((int) (calcMemory(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())));
             }
             channelHandlerContext.channel().writeAndFlush(packet);
         });

@@ -17,15 +17,8 @@ public final class GameServerVersion {
 
     public static final GameServerVersion WATERFALL = new GameServerVersion("waterfall", "latest", true);
     public static final GameServerVersion VELOCITY = new GameServerVersion("velocity", "latest", true);
-    public static final GameServerVersion PAPER_1_18_2 = new GameServerVersion("paper", "1.18.2");
-    public static final @Deprecated(since = "2.2.0") GameServerVersion PAPER_1_18_1 = new GameServerVersion("paper", "1.18.1");
-    public static final GameServerVersion PAPER_1_17_1 = new GameServerVersion("paper", "1.17.1");
+    public static final GameServerVersion PAPER_1_20_4 = new GameServerVersion("paper", "1.20.4");
     public static final GameServerVersion PAPER_1_16_5 = new GameServerVersion("paper", "1.16.5");
-    public static final GameServerVersion PAPER_1_15_2 = new GameServerVersion("paper", "1.15.2");
-    public static final GameServerVersion PAPER_1_14_4 = new GameServerVersion("paper", "1.14.4");
-    public static final GameServerVersion PAPER_1_13_2 = new GameServerVersion("paper", "1.13.2");
-    public static final GameServerVersion PAPER_1_12_2 = new GameServerVersion("paper", "1.12.2");
-    public static final GameServerVersion GLOWSTONE_1_12_2 = new GameServerVersion("glowstone", "1.12.2", "https://github.com/GlowstoneMC/Glowstone/releases/download/2021.7.0/glowstone.jar");
 
     private final String url;
     private final String title;

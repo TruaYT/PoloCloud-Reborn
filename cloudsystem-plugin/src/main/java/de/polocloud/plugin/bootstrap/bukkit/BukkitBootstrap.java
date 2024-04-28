@@ -9,6 +9,7 @@ public final class BukkitBootstrap extends JavaPlugin {
     @Override
     public void onEnable() {
         // update that the service is ready to use
+        System.out.println("YALLAH");
         final var service = Wrapper.getInstance().thisService();
 
         if (service.getGroup().isAutoUpdating()) {
